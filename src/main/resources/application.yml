@@ -1,11 +1,12 @@
-server:
+server:  
   port: 8082
 spring:
-  mvc:
-     view:
-       prefix: /WEB-INF/jsp/
-       suffix: .jsp 
   datasource:
-    url: jdbc:postgresql://localhost:5432/creditCardDB
+    url: jdbc:postgresql://localhost:5432/CreditCardDB
     username: postgres
     password: 12345678
+  jpa:
+    database-platform : org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update 

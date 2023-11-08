@@ -19,7 +19,7 @@ public class Account {
 	private String accountType;
 
 	public Account(long accountId, String accountName, double balance, String accountType) {
-		super();
+		
 		this.accountId = accountId;
 		this.accountName = accountName;
 		this.balance = balance;
