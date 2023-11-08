@@ -43,5 +43,4 @@ public class Users {
 	public String toString() {
 		return "Users [userId=" + userId + ", password=" + password + "]";
 	}
-
 }
