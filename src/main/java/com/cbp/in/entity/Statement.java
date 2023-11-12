@@ -3,84 +3,86 @@ package com.cbp.in.entity;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import javax.validation.constraints.Min;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Statement {
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long statementId;
-	private double dueAmmount;
+	@Min(value=1000,message="Dueamount should be greater than 1000")
+	private double dueAmount;
 	private LocalDate billingDate;
 	private LocalDate dueDate;
-	@ManyToOne
-	private Customers customers;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="customerId")
+    @JsonIgnore
+	public Customers customers;
+	public Statement() {}
+ 
 	public long getStatementId() {
 		return statementId;
 	}
-
+ 
 	public void setStatementId(long statementId) {
 		this.statementId = statementId;
 	}
-
-	public double getDueAmmount() {
-		return dueAmmount;
+ 
+	public double getDueAmount() {
+		return dueAmount;
 	}
-
-	public void setDueAmmount(double dueAmmount) {
-		this.dueAmmount = dueAmmount;
+ 
+	public void setDueAmount(double dueAmount) {
+		this.dueAmount = dueAmount;
 	}
-
+ 
 	public LocalDate getBillingDate() {
 		return billingDate;
 	}
-
+ 
 	public void setBillingDate(LocalDate billingDate) {
 		this.billingDate = billingDate;
 	}
-
+ 
 	public LocalDate getDueDate() {
 		return dueDate;
 	}
-
+ 
 	public void setDueDate(LocalDate dueDate) {
 		this.dueDate = dueDate;
 	}
-
+ 
 	public Customers getCustomers() {
 		return customers;
 	}
-
+ 
 	public void setCustomers(Customers customers) {
 		this.customers = customers;
 	}
-
-	public Statement(long statementId, double dueAmmount, LocalDate billingDate, LocalDate dueDate,
-			Customers customers) {
+ 
+	@Override
+	public String toString() {
+		return "Statement [statementId=" + statementId + ", dueAmount=" + dueAmount + ", billingDate=" + billingDate
+				+ ", dueDate=" + dueDate + ", customers=" + customers + "]";
+	}
+ 
+	public Statement(long statementId,
+			@Min(value = 1000, message = "Dueamount should be greater than 1000") double dueAmount,
+			LocalDate billingDate, LocalDate dueDate, Customers customers) {
 		super();
 		this.statementId = statementId;
-		this.dueAmmount = dueAmmount;
+		this.dueAmount = dueAmount;
 		this.billingDate = billingDate;
 		this.dueDate = dueDate;
 		this.customers = customers;
 	}
 
-	@Override
-	public String toString() {
-		return "Statement [statementId=" + statementId + ", dueAmmount=" + dueAmmount + ", billingDate=" + billingDate
-				+ ", dueDate=" + dueDate + ", customers=" + customers + "]";
-	}
-
-	public Statement() {
-
-	}
 
 }
