@@ -18,14 +18,19 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Override
 	public Transaction addTransaction(Transaction transaction) {
+		
 		transactionRepository.saveAndFlush(transaction);
+		
 		return transaction;
 	}
 
 	@Override
 	public String removeTransaction(long id) {
+		
 		if (transactionRepository.existsById(id)) {
+			
 			Transaction t = transactionRepository.findById(id).get();
+			
 			transactionRepository.deleteById(id);
 			return "transaction Removed";
 		} else {

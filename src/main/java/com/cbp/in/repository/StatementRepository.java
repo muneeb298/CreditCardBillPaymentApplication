@@ -8,5 +8,6 @@ import com.cbp.in.entity.Statement;
 
 @Repository
 public interface StatementRepository extends JpaRepository<Statement,Long> {
-
+	
+	Statement findById(long id);
 }
