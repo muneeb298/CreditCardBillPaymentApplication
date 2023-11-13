@@ -2,98 +2,107 @@ package com.cbp.in.entity;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Transaction {
 	@Id
-	private long transid;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private long transId;
+	@NotBlank(message="cardNumber can't be blank")
+	@Column(name="CardNumber")
 	private String cardNumber;
 	private LocalDate tranDate;
 	private String status;
 	private double amount;
 	private String paymentMethod;
 	private String description;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="customerId")
+	@JsonIgnore
 	private Customers customers;
-
-	public long getTransid() {
-		return transid;
+ 
+	public long getTransId() {
+		return transId;
 	}
-
-	public void setTransid(long transid) {
-		this.transid = transid;
+ 
+	public void setTransId(long transId) {
+		this.transId = transId;
 	}
-
+ 
 	public String getCardNumber() {
 		return cardNumber;
 	}
-
+ 
 	public void setCardNumber(String cardNumber) {
 		this.cardNumber = cardNumber;
 	}
-
+ 
 	public LocalDate getTranDate() {
 		return tranDate;
 	}
-
+ 
 	public void setTranDate(LocalDate tranDate) {
 		this.tranDate = tranDate;
 	}
-
+ 
 	public String getStatus() {
 		return status;
 	}
-
+ 
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
+ 
 	public double getAmount() {
 		return amount;
 	}
-
+ 
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-
+ 
 	public String getPaymentMethod() {
 		return paymentMethod;
 	}
-
+ 
 	public void setPaymentMethod(String paymentMethod) {
 		this.paymentMethod = paymentMethod;
 	}
-
+ 
 	public String getDescription() {
 		return description;
 	}
-
+ 
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
+ 
 	public Customers getCustomers() {
 		return customers;
 	}
-
+ 
 	public void setCustomers(Customers customers) {
 		this.customers = customers;
 	}
-
-	public Transaction(long transid, String cardNumber, LocalDate tranDate, String status, double amount,
-			String paymentMethod, String description, Customers customers) {
+ 
+	public Transaction(long transId, @NotBlank(message = "cardNumber can't be blank") String cardNumber,
+			LocalDate tranDate, String status, double amount, String paymentMethod, String description,
+			Customers customers) {
 		super();
-		this.transid = transid;
+		this.transId = transId;
 		this.cardNumber = cardNumber;
 		this.tranDate = tranDate;
 		this.status = status;
@@ -101,17 +110,16 @@ public class Transaction {
 		this.paymentMethod = paymentMethod;
 		this.description = description;
 		this.customers = customers;
-	}
-
-	@Override
-	public String toString() {
-		return "Transaction [transid=" + transid + ", cardNumber=" + cardNumber + ", tranDate=" + tranDate + ", status="
-				+ status + ", amount=" + amount + ", paymentMethod=" + paymentMethod + ", description=" + description
-				+ ", customers=" + customers + "]";
 	}
 
 	public Transaction() {
 
 	}
-
+ 
+	@Override
+	public String toString() {
+		return "Transaction [transId=" + transId + ", cardNumber=" + cardNumber + ", tranDate=" + tranDate + ", status="
+				+ status + ", amount=" + amount + ", paymentMethod=" + paymentMethod + ", description=" + description
+				+ ", customers=" + customers + "]";
+	}
 }
