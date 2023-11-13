@@ -1,33 +1,40 @@
 package com.cbp.in.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+
+
 
 @Entity
 public class Users {
+	
 	@Id
-	private String userId;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private long userId;
+	
+	@NotBlank(message="Password can't be blank")
+	@Pattern(regexp = "^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[A-Z])(?=.*[a-z]).{8,}$")
 	private String password;
-
+	
 	public Users() {
-
+		super();
 	}
 
-	public Users(String userId, String password) {
-	
+	public Users(long userId, @NotBlank String password) {
+		super();
 		this.userId = userId;
 		this.password = password;
 	}
 
-	public String getUserId() {
+	public long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
 
@@ -41,6 +48,6 @@ public class Users {
 
 	@Override
 	public String toString() {
-		return "Users [userId=" + userId + ", password=" + password + "]";
+		return "User [userId=" + userId + ", password=" + password + "]";
 	}
 }
