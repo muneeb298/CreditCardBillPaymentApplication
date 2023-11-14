@@ -19,27 +19,7 @@ public class UserServiceImpl implements UserService{
 	
 	 private Users loggedInUser;
  
-//	public String register(User user) {
-//		
-//		if (loggedInUser == null) {
-//
-//			String passwordregex = "^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[A-Z])(?=.*[a-z]).{8,}$";
-//			
-//			if (user.getPassword().matches(passwordregex)) {
-//				
-//				userRepository.saveAndFlush(user);
-//				
-//				return "New User Added Successfully";
-//				
-//			} else
-//				
-//				return "Password not according to rules";
-//			
-//		} else {
-//			
-//			return "Try Registering after signing out";
-//		}
-//	}
+
 	 @Override
 	public List<Users> getAllUsers() {
 		 
