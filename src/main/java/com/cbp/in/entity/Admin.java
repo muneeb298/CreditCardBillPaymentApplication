@@ -17,39 +17,42 @@ public class Admin {
 	
 
 	@OneToOne(cascade = CascadeType.ALL)
-	private Users user;
+	private User user;
 
-	public Admin() {
-		super();
-	}
-
-
-	public Users getUser() {
-		return user;
-	}
-
-	public void setUser(Users user) {
-		this.user = user;
-	}
+	public Admin() {}
 
 	public long getAdminId() {
 		return adminId;
 	}
 
+
 	public void setAdminId(long adminId) {
-		
 		this.adminId = adminId;
 	}
 
-	@Override
-	public String toString() {
-		
-		return "Admin [adminId=" + adminId + ", user=" + user + "]";
+
+	public User getUser() {
+		return user;
 	}
 
-	public Admin(long adminId, Users user) {
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+
+	public Admin(long adminId, User user) {
 		super();
 		this.adminId = adminId;
 		this.user = user;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Admin [adminId=" + adminId + ", user=" + user + "]";
+	}
+	
+	
+	
 }

@@ -2,9 +2,9 @@ server:
   port: 8083
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/CreditCardD12
+    url: jdbc:postgresql://localhost:5432/CreditCardDB
     username: postgres
-    password: 9063027
+    password: 12345678
   jpa:
     database-platform : org.hibernate.dialect.PostgreSQLDialect
     show-sql: true

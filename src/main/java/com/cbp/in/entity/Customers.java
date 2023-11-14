@@ -29,7 +29,7 @@ public class Customers {
 	private String address;
 	
 	@OneToOne(cascade=CascadeType.ALL)
-	private Users user;
+	private User user;
 	
 	@ManyToMany(cascade=CascadeType.ALL)
 	@JsonIgnore
@@ -123,13 +123,13 @@ public class Customers {
 	}
 
 
-	public Users getUser() {
+	public User getUser() {
 		
 		return user;
 	}
 
 
-	public void setUser(Users user) {
+	public void setUser(User user) {
 		
 		this.user = user;
 	}
@@ -192,7 +192,7 @@ public class Customers {
 
 
 	public Customers(long customerId, @NotBlank(message = "Name can't be blank") String name, String email,
-			String contactNo, LocalDate dob, String address, Users user, Set<Account> accountlist,
+			String contactNo, LocalDate dob, String address, User user, Set<Account> accountlist,
 			List<Statement> statement, List<CreditCard> creditcard, List<Transaction> transaction) {
 		super();
 		this.customerId = customerId;
@@ -210,7 +210,7 @@ public class Customers {
 
 
 	public Customers(long customerId, @NotBlank(message = "Name can't be blank") String name, String email,
-			String contactNo, LocalDate dob, String address) {
+			String contactNo, LocalDate dob, String address, User user) {
 		super();
 		this.customerId = customerId;
 		this.name = name;
@@ -218,5 +218,6 @@ public class Customers {
 		this.contactNo = contactNo;
 		this.dob = dob;
 		this.address = address;
+		this.user = user;
 	}	
 }

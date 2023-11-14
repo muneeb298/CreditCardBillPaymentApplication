@@ -8,39 +8,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cbp.in.entity.Users;
+import com.cbp.in.entity.User;
 import com.cbp.in.service.UserService;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+
 
 @RestController
 @RequestMapping("/loginapi")
 public class UserController {
+	
 	@Autowired
 	private UserService userService;
-	public UserController() {}
-	public UserController(UserService userService) {
-		super();
-		this.userService = userService;
-	}
+
+//	@PostMapping("/addUser")
+//	public String add(@Valid @RequestBody Users user) {
+//		return userService.register(user);
+//	}
 
 	@GetMapping("/getallusers")
-	public List<Users> getAll() {
+	public List<User> getAll() {
 		return userService.getAllUsers();
 	}
 	@PostMapping("/signin")
-	public String signIn(@Valid @RequestBody Users user) {
+	public String signIn(@Valid @RequestBody User user) {
 		return userService.signIn(user);
 	}
 	@PostMapping("/signout")
-	public String signOut(@RequestBody Users user) {
+	public String signOut(@Valid @RequestBody User user) {
 		return userService.signOut(user);
 	}
 	@PutMapping("/changepassword")
-	public String changePassword(@RequestBody Users user) {
+	public String changePassword(@Valid @RequestBody User user) {
 		return userService.changePassword(user);
 	}
 }

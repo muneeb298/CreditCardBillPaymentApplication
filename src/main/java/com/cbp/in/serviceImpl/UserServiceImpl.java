@@ -2,23 +2,25 @@ package com.cbp.in.serviceImpl;
 
 import java.util.List;
 
+import java.util.Scanner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cbp.in.entity.Users;
+import com.cbp.in.entity.User;
 import com.cbp.in.exceptions.PasswordNotFoundException;
 import com.cbp.in.exceptions.UserIdNotFoundException;
-import com.cbp.in.repository.UsersRepository;
+import com.cbp.in.repository.UserRepository;
 import com.cbp.in.service.UserService;
 
+
 @Service
-public class UserServiceImpl implements UserService{
-	
+public class UserServiceImpl implements UserService {
+
 	@Autowired
-	private UsersRepository userRepository;
+	private UserRepository userRepository;
 	
-	 private Users loggedInUser;
- 
+	 private User loggedInUser;
+
 //	public String register(User user) {
 //		
 //		if (loggedInUser == null) {
@@ -41,20 +43,20 @@ public class UserServiceImpl implements UserService{
 //		}
 //	}
 	 @Override
-	public List<Users> getAllUsers() {
-		 
+	public List<User> getAllUsers() {
+		
 		return userRepository.findAll();
 	}
+	
 
- 
 	@Override
-	public String signIn(Users user) {
+	public String signIn(User user) {
 		
 		if (loggedInUser == null) {
 			
 			if (userRepository.existsById(user.getUserId())) {
 				
-				Users uuser = userRepository.findById(user.getUserId()).get();
+				User uuser = userRepository.findById(user.getUserId()).get();
 				
 				String cpass = uuser.getPassword();
 				
@@ -69,15 +71,17 @@ public class UserServiceImpl implements UserService{
 					throw new PasswordNotFoundException("Password is wrong");
 				}
 			} else {
+				
 				throw new UserIdNotFoundException("This UserId doesn't exists");
 			}
 		} else {
+			
 			return "you have already signned in";
 		}
 	}
- 
+
 	@Override
-	public String signOut(Users user) {
+	public String signOut(User user) {
 		
 		if(userRepository.existsById(user.getUserId())) {
 			
@@ -92,7 +96,6 @@ public class UserServiceImpl implements UserService{
 				} else {
 					
 					return "incorrect username or password";
-					
 				}
 			} else {
 				
@@ -100,39 +103,38 @@ public class UserServiceImpl implements UserService{
 			}
 		}
 		else {
-			throw new UserIdNotFoundException("This UserId doesn't exists");
-		}
-	}
- 
-	@Override
-	public String changePassword(Users user) {
- 
-		if (userRepository.existsById(user.getUserId())) {
- 
-			Users olduser = userRepository.findById(user.getUserId()).get();
- 
-			if (olduser.getPassword().equals(user.getPassword())) {
- 
-				return "Give Different password";
-				
-			} else {
- 
-				String passwordregex = "^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[A-Z])(?=.*[a-z]).{8,}$";
- 
-				if (user.getPassword().matches(passwordregex)) {
- 
-					userRepository.save(user);
- 
-					return "Password changed";
-				} else {
- 
-					return "Password not according to rules";
-				}
-			}
-		} else {
- 
+			
 			throw new UserIdNotFoundException("This UserId doesn't exists");
 		}
 	}
 
+	@Override
+	public String changePassword(User user) {
+
+		if (userRepository.existsById(user.getUserId())) {
+
+			User olduser = userRepository.findById(user.getUserId()).get();
+
+			if (olduser.getPassword().equals(user.getPassword())) {
+
+				return "Give Different password";
+			} else {
+
+				String passwordregex = "^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[A-Z])(?=.*[a-z]).{8,}$";
+
+				if (user.getPassword().matches(passwordregex)) {
+
+					userRepository.save(user);
+
+					return "Password changed";
+				} else {
+
+					return "Password not according to rules";
+				}
+			}
+		} else {
+
+			throw new UserIdNotFoundException("This UserId doesn't exists");
+		}
+	}
 }
