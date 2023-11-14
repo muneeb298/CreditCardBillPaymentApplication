@@ -2,7 +2,7 @@ server:
   port: 8083
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/CreditCardDB
+    url: jdbc:postgresql://localhost:5432/CreditCard12
     username: postgres
     password: 12345678
   jpa:
