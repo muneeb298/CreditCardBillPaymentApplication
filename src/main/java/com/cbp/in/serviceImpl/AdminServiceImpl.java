@@ -17,7 +17,7 @@ public class AdminServiceImpl implements AdminService {
 		
 		String p = "^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[A-Z])(?=.*[a-z]).{8,}$";
 		
-		if(admin.getUsers().getPassword().matches(p)) {
+		if(admin.getUser().getPassword().matches(p)) {
 			
 			adminrepository.save(admin);
 			

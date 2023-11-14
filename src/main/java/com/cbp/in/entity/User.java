@@ -4,13 +4,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
-
 @Entity
-public class Users {
-	
+@Table(name="users")
+public class User {
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long userId;
@@ -19,11 +20,11 @@ public class Users {
 	@Pattern(regexp = "^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[A-Z])(?=.*[a-z]).{8,}$")
 	private String password;
 	
-	public Users() {
+	public User() {
 		super();
 	}
 
-	public Users(long userId, @NotBlank String password) {
+	public User(long userId, @NotBlank String password) {
 		super();
 		this.userId = userId;
 		this.password = password;
