@@ -2,45 +2,57 @@ package com.cbp.in.entity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 
 @Entity
 public class Admin {
-	@Id
-	private String adminId;
-	@OneToOne(cascade = CascadeType.ALL)
-	private Users users;
-
-	public Admin() {
 	
-	}
+	@Id
+	@GeneratedValue(strategy =GenerationType.AUTO)
+	private long adminId;
+	
 
-	public Admin(String adminId, Users users) {
+	@OneToOne(cascade = CascadeType.ALL)
+	private User user;
 
-		this.adminId = adminId;
-		this.users = users;
-	}
+	public Admin() {}
 
-	public String getAdminId() {
+	public long getAdminId() {
 		return adminId;
 	}
 
-	public void setAdminId(String adminId) {
+
+	public void setAdminId(long adminId) {
 		this.adminId = adminId;
 	}
 
-	public Users getUsers() {
-		return users;
+
+	public User getUser() {
+		return user;
 	}
 
-	public void setUsers(Users users) {
-		this.users = users;
+
+	public void setUser(User user) {
+		this.user = user;
 	}
+
+
+	public Admin(long adminId, User user) {
+		super();
+		this.adminId = adminId;
+		this.user = user;
+	}
+
 
 	@Override
 	public String toString() {
-		return "Admin [adminId=" + adminId + ", users=" + users + "]";
+		return "Admin [adminId=" + adminId + ", user=" + user + "]";
 	}
+	
+	
+	
 }

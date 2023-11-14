@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.cbp.in.entity.Customers;
 
 @Repository
-public interface CustomerRepository extends JpaRepository<Customers, String>{
+public interface CustomerRepository extends JpaRepository<Customers, Long>{
 
 }

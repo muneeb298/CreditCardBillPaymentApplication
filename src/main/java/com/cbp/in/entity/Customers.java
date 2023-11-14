@@ -6,158 +6,218 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Customers {
 	
 	@Id
-	private String customerId;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private long customerId;
+	@NotBlank(message="Name can't be blank")
 	private String name;
 	private String email;
 	private String contactNo;
 	private LocalDate dob;
+	private String address;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	private Users users;
+	@OneToOne(cascade=CascadeType.ALL)
+	private User user;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customers")
-	private List<Address> addressList;
+	@ManyToMany(cascade=CascadeType.ALL)
+	@JsonIgnore
+	private Set<Account> accountlist;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customers")
-	private Set<CreditCard> creditCardList;
+	@OneToMany(cascade=CascadeType.ALL, mappedBy = "customers")
+	@JsonIgnore
+	private List<Statement> statement;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customers")
-	private List<Transaction>  transactionList;
+	@OneToMany(cascade=CascadeType.ALL, mappedBy = "customers")
+	@JsonIgnore
+	private List<CreditCard> creditcard;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customers")
-	private List<Statement>  statementList;
+	@OneToMany(cascade=CascadeType.ALL,mappedBy="customers")
+	@JsonIgnore
+	private List<Transaction> transaction;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	private Set<Account> accountList;
 
-	public String getCustomerId() {
+	public Customers() {}
+
+
+	public long getCustomerId() {
+		
 		return customerId;
 	}
 
-	public void setCustomerId(String customerId) {
+
+	public void setCustomerId(long customerId) {
+		
 		this.customerId = customerId;
 	}
 
+
 	public String getName() {
+		
 		return name;
 	}
 
+
 	public void setName(String name) {
+		
 		this.name = name;
 	}
 
+
 	public String getEmail() {
+		
 		return email;
 	}
 
+
 	public void setEmail(String email) {
+		
 		this.email = email;
 	}
 
+
 	public String getContactNo() {
+		
 		return contactNo;
 	}
 
+
 	public void setContactNo(String contactNo) {
+		
 		this.contactNo = contactNo;
 	}
 
+
 	public LocalDate getDob() {
+		
 		return dob;
 	}
 
+
 	public void setDob(LocalDate dob) {
+		
 		this.dob = dob;
 	}
 
-	public Users getUsers() {
-		return users;
+
+	public String getAddress() {
+		
+		return address;
 	}
 
-	public void setUsers(Users users) {
-		this.users = users;
+
+	public void setAddress(String address) {
+		
+		this.address = address;
 	}
 
-	public List<Address> getAddressList() {
-		return addressList;
+
+	public User getUser() {
+		
+		return user;
 	}
 
-	public void setAddressList(List<Address> addressList) {
-		this.addressList = addressList;
+
+	public void setUser(User user) {
+		
+		this.user = user;
 	}
 
-	public Set<CreditCard> getCreditCardList() {
-		return creditCardList;
+
+	public Set<Account> getAccountlist() {
+		
+		return accountlist;
 	}
 
-	public void setCreditCardList(Set<CreditCard> creditCardList) {
-		this.creditCardList = creditCardList;
+
+	public void setAccountlist(Set<Account> accountlist) {
+		
+		this.accountlist = accountlist;
 	}
 
-	public List<Transaction> getTransactionList() {
-		return transactionList;
+
+	public List<Statement> getStatement() {
+		
+		return statement;
 	}
 
-	public void setTransactionList(List<Transaction> transactionList) {
-		this.transactionList = transactionList;
+
+	public void setStatement(List<Statement> statement) {
+		
+		this.statement = statement;
 	}
 
-	public List<Statement> getStatementList() {
-		return statementList;
+
+	public List<CreditCard> getCreditcard() {
+		
+		return creditcard;
 	}
 
-	public void setStatementList(List<Statement> statementList) {
-		this.statementList = statementList;
+
+	public void setCreditcard(List<CreditCard> creditcard) {
+		
+		this.creditcard = creditcard;
 	}
 
-	public Set<Account> getAccountList() {
-		return accountList;
+
+	public List<Transaction> getTransaction() {
+		
+		return transaction;
 	}
 
-	public void setAccountList(Set<Account> accountList) {
-		this.accountList = accountList;
+
+	public void setTransaction(List<Transaction> transaction) {
+		
+		this.transaction = transaction;
 	}
 
-	public Customers(String customerId, String name, String email, String contactNo, LocalDate dob, Users users,
-			List<Address> addressList, Set<CreditCard> creditCardList, List<Transaction> transactionList,
-			List<Statement> statementList, Set<Account> accountList) {
+
+	@Override
+	public String toString() {
+		return "Customer [customerId=" + customerId + ", name=" + name + ", email=" + email + ", contactNo=" + contactNo
+				+ ", dob=" + dob + ", address=" + address + ", user=" + user + ", accountlist=" + accountlist
+				+ ", statement=" + statement + ", creditcard=" + creditcard + ", transaction=" + transaction + "]";
+	}
+
+
+	public Customers(long customerId, @NotBlank(message = "Name can't be blank") String name, String email,
+			String contactNo, LocalDate dob, String address, User user, Set<Account> accountlist,
+			List<Statement> statement, List<CreditCard> creditcard, List<Transaction> transaction) {
 		super();
 		this.customerId = customerId;
 		this.name = name;
 		this.email = email;
 		this.contactNo = contactNo;
 		this.dob = dob;
-		this.users = users;
-		this.addressList = addressList;
-		this.creditCardList = creditCardList;
-		this.transactionList = transactionList;
-		this.statementList = statementList;
-		this.accountList = accountList;
-	}
-	
-	public Customers() {
-		
-		
+		this.address = address;
+		this.user = user;
+		this.accountlist = accountlist;
+		this.statement = statement;
+		this.creditcard = creditcard;
+		this.transaction = transaction;
 	}
 
-	@Override
-	public String toString() {
-		return "Customers [customerId=" + customerId + ", name=" + name + ", email=" + email + ", contactNo="
-				+ contactNo + ", dob=" + dob + ", users=" + users + ", addressList=" + addressList + ", creditCardList="
-				+ creditCardList + ", transactionList=" + transactionList + ", statementList=" + statementList
-				+ ", accountList=" + accountList + "]";
-	}
-	
-	
-	
+
+	public Customers(long customerId, @NotBlank(message = "Name can't be blank") String name, String email,
+			String contactNo, LocalDate dob, String address, User user) {
+		super();
+		this.customerId = customerId;
+		this.name = name;
+		this.email = email;
+		this.contactNo = contactNo;
+		this.dob = dob;
+		this.address = address;
+		this.user = user;
+	}	
 }
