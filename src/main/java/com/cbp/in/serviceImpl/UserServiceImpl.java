@@ -42,6 +42,7 @@ public class UserServiceImpl implements UserService {
 //			return "Try Registering after signing out";
 //		}
 //	}
+  
 	 @Override
 	public List<User> getAllUsers() {
 		
