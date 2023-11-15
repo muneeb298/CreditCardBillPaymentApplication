@@ -19,6 +19,11 @@ public class AccountServiceImpl implements AccountService {
  
 	Account acc;
  
+	public AccountServiceImpl(AccountRepository accountRepository2) {
+		
+		this.accountrepository = accountRepository2;
+	}
+
 	@Override
 	public Account addAccount(Account account) {
  

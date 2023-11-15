@@ -120,6 +120,9 @@ public class Transaction {
 	public String toString() {
 		return "Transaction [transId=" + transId + ", cardNumber=" + cardNumber + ", tranDate=" + tranDate + ", status="
 				+ status + ", amount=" + amount + ", paymentMethod=" + paymentMethod + ", description=" + description
-				+ ", customers=" + customers + "]";
+				+  "]";
 	}
+
+	
+	
 }
