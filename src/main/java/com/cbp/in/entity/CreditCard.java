@@ -9,7 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -23,10 +25,13 @@ public class CreditCard {
 	public long creditId;
 	@NotBlank(message="CardName can't be blank")
 	public String cardname;
+	@NotEmpty(message = "CardType can't be blank")
 	public String cardtype;
 	@NotBlank(message="CardNumber can't be Null")
 	public String cardnumber;
+	@Future(message = "expirydate is not valid")
 	public LocalDate expirydate;
+	@NotEmpty(message = "bankname can't be blank")
 	public String bankname;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="customerId")
