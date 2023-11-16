@@ -4,14 +4,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Account {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long accountId;
+	@NotEmpty(message = "Name should not be Empty")
 	private String accountName;
 	private double balance;
+	@NotEmpty(message = "accountType should not be Empty")
 	private String accountType;
 	public Account() {
 		super();

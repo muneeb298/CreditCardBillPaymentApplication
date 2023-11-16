@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 
 
 @Entity
@@ -11,8 +12,10 @@ public class Payment {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long paymentId;
+	@NotEmpty(message = "Payment method should not be empty")
 	private String method;
 	private double amountDue;
+	
 	public Payment() {
 		super();
 	}

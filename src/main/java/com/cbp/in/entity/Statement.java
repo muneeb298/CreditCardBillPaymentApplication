@@ -9,7 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Past;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -17,9 +21,10 @@ public class Statement {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long statementId;
-	@Min(value=1000,message="Dueamount should be greater than 1000")
 	private double dueAmount;
+	@Future(message = "billingDate is not vaild")
 	private LocalDate billingDate;
+	@Past(message = "billingDate is not vaild")
 	private LocalDate dueDate;
     @ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="customerId")

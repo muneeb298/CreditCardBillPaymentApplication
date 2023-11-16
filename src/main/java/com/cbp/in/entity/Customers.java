@@ -12,7 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -22,10 +27,15 @@ public class Customers {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long customerId;
 	@NotBlank(message="Name can't be blank")
+	@NotEmpty(message= "Cant be empty")
 	private String name;
+	@Email(message = "Email is not vaild")
 	private String email;
+	@Size(min = 10, max = 12)
 	private String contactNo;
+	@Past(message = "DOB is not vaild")
 	private LocalDate dob;
+	@NotEmpty(message = "Address can't be blank")
 	private String address;
 	
 	@OneToOne(cascade=CascadeType.ALL)

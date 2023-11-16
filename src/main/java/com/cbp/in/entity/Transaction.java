@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -25,8 +26,11 @@ public class Transaction {
 	@Column(name="CardNumber")
 	private String cardNumber;
 	private LocalDate tranDate;
+	@NotEmpty(message = "status should not be empty")
 	private String status;
+	
 	private double amount;
+	@NotEmpty(message = "paymentMethod should not be empty")
 	private String paymentMethod;
 	private String description;
 	@ManyToOne(fetch = FetchType.LAZY)
